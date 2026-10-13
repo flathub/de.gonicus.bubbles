@@ -57,21 +57,23 @@ modules:
     build-options:
       env:
         CARGO_HOME: /run/build/bubbles/cargo
-    subdir: bubbles-app
     build-commands:
-      - cargo --offline build --release
+      - cargo --offline build --release --workspace
       - install -Dm755 target/release/bubbles /app/bin/bubbles
-      - install -Dm644 de.gonicus.bubbles.desktop /app/share/applications/de.gonicus.bubbles.desktop
-      - install -Dm644 de.gonicus.bubbles.metainfo.xml /app/share/metainfo/de.gonicus.bubbles.metainfo.xml
-      - install -Dm644 de.gonicus.bubbles.svg /app/share/icons/hicolor/scalable/apps/de.gonicus.bubbles.svg
-      - install -Dm644 ../LICENSE /app/share/licenses/de.gonicus.bubbles/bubbles/LICENSE
-      - install -Dm644 CROSVM_CARGO_DEPENDENCIES_LICENSES.html /app/share/licenses/de.gonicus.bubbles/crosvm/THIRD_PARTY_LICENSES.html
-      - install -Dm644 BUBBLES_CARGO_DEPENDENCIES_LICENSES.html /app/share/licenses/de.gonicus.bubbles/bubbles/THIRD_PARTY_LICENSES.html
+      - install -Dm755 target/release/bubbles-agent payload/bubbles-agent
+      - tar --sort=name --owner=0 --group=0 --numeric-owner --mtime=@0 -cf agent.tar -C payload .
+      - install -Dm644 agent.tar /app/share/bubbles/agent.tar
+      - install -Dm644 flatpak/de.gonicus.bubbles.desktop /app/share/applications/de.gonicus.bubbles.desktop
+      - install -Dm644 flatpak/de.gonicus.bubbles.metainfo.xml /app/share/metainfo/de.gonicus.bubbles.metainfo.xml
+      - install -Dm644 flatpak/de.gonicus.bubbles.svg /app/share/icons/hicolor/scalable/apps/de.gonicus.bubbles.svg
+      - install -Dm644 LICENSE /app/share/licenses/de.gonicus.bubbles/bubbles/LICENSE
+      - install -Dm644 flatpak/CROSVM_CARGO_DEPENDENCIES_LICENSES.html /app/share/licenses/de.gonicus.bubbles/crosvm/THIRD_PARTY_LICENSES.html
+      - install -Dm644 flatpak/BUBBLES_CARGO_DEPENDENCIES_LICENSES.html /app/share/licenses/de.gonicus.bubbles/bubbles/THIRD_PARTY_LICENSES.html
     sources:
       - type: git
         url: https://github.com/gonicus/bubbles.git
-        tag: app-v1.2.8
-        commit: 912b5ebf92fbdb498a4b9d05c209f0163bdb5dc8
+        tag: app-v1.3.2
+        commit: 67d1e3dcac462d931395e28916bc3cbf1ef9690b
         x-checker-data:
           type: git
           tag-pattern: ^app-v([0-9]+\.[0-9]+(\.[0-9]+)?)$
