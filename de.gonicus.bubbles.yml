@@ -72,8 +72,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/gonicus/bubbles.git
-        tag: app-v1.3.6
-        commit: be050b369ae104a4c328d8a2c0f42edfe8318ca6
+        tag: app-v1.4.1
+        commit: 8fce92b6d6d62902e701d6ffc1b0038c5eaf0c2c
         x-checker-data:
           type: git
           tag-pattern: ^app-v([0-9]+\.[0-9]+(?:\.[0-9]+)?)$
